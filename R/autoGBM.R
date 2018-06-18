@@ -41,7 +41,6 @@ autoGBM <- function(x,y,train_hex,valid_hex,test_hex, model_path=".", max_runtim
     auc = sapply(1:length(m), function(x) h2o.auc(h2o.performance(m[names(m)[x]][[1]], newdata = test_hex))),
     logloss = sapply(1:length(m), function(x) h2o.logloss(h2o.performance(m[names(m)[x]][[1]], newdata = test_hex)))
   )
-  cat(">> autoGBM Evaluation Metrics \n")
   return(autoGBM_eval)
 }
 
