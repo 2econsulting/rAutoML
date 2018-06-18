@@ -24,8 +24,8 @@ grid <- h2o.grid(
   score_each_iteration = TRUE,
   stopping_metric = "logloss",
   ntrees = 10000,
-  stopping_rounds = autoGBM_BestParams$stopping_rounds,
-  stopping_tolerance = autoGBM_BestParams$stopping_tolerance,
+  stopping_rounds = autoGBM_BestParams["stopping_round"][[1]]s,
+  stopping_tolerance = autoGBM_BestParams["stopping_tolerance"][[1]],
   hyper_params = hyper_params,
   search_criteria = list(strategy = "Cartesian")
 )

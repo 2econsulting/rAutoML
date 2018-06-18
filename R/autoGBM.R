@@ -4,10 +4,8 @@
 #' @param x independent variables
 #' @param y dependent variable
 #' @examples
-#' library(rBayesianOptimization)
 #' library(h2o)
 #' library(rAutoML)
-#' library(knitr)
 #' model_path <- c("C:/tmp")
 #' h2o.init()
 #' data(churn, package = "rAutoML")
@@ -19,16 +17,6 @@
 #' y <- "Churn."
 #' x <- setdiff(names(churn_hex),  c(y))
 #' autoGBM(x, y, train_hex, valid_hex, test_hex, model_path)
-#' knitr::kable(autoGBM_eval, format = "markdown")
-#' knitr::kable(autoGBM_eval, format = "pandoc")
-#' models                    auc     logloss
-#' -----------------  ----------  ----------
-#' H2OGBM_Default      0.9136564   0.2006527
-#' H2OGBM_StopRules    0.8995600   0.2097254
-#' H2OGBM_CatEncode    0.9154616   0.1566602
-#' H2OGBM_MaxDepth     0.9166058   0.1754864
-#' H2OGBM_Random       0.9225640   0.1522216
-#' H2OGBM_Bayesian     0.9262237   0.1591523
 #' @export
 autoGBM <- function(x, y, train_hex, valid_hex, test_hex, model_path="./"){
 
