@@ -22,4 +22,10 @@ grid <- h2o.grid(
   search_criteria = list(strategy = "Cartesian")
 )
 
+grid_sorted <- h2o.getGrid(grid_id="H2OGBM_MaxDepth", sort_by="logloss", decreasing=FALSE)
+autoGBM_Models["H2OGBM_MaxDepth"] <- list(h2o.getModel(grid_sorted@model_ids[[1]]))
+h2o.auc(h2o.performance(autoGBM_Models["H2OGBM_MaxDepth"][[1]], newdata = test_hex))
+saveRDS(autoGBM_Models['H2OGBM_MaxDepth'], file.path(model_path, "H2OGBM_MaxDepth.rda"))
+autoGBM_BestParams['TOP3_max_depth'] <- list(as.numeric(grid_sorted@summary_table$max_depth[1:3]))
+
 cat(">> H2OGBM_MaxDepth done! \n")

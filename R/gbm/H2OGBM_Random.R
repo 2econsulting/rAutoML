@@ -34,4 +34,15 @@ grid <- h2o.grid(
   search_criteria = search_criteria
 )
 
+grid_sorted <- h2o.getGrid(grid_id="H2OGBM_Random", sort_by="logloss", decreasing=FALSE)
+autoGBM_Models["H2OGBM_Random"] <- list(h2o.getModel(grid_sorted@model_ids[[1]]))
+h2o.auc(h2o.performance(autoGBM_Models["H2OGBM_Random"][[1]], newdata = test_hex))
+saveRDS(autoGBM_Models['H2OGBM_Random'], file.path(model_path, "H2OGBM_Random.rda"))
+autoGBM_BestParams['Random_categorical_encoding'] <- grid_sorted@summary_table$categorical_encoding[1]
+autoGBM_BestParams['Random_max_depth'] <- as.numeric(grid_sorted@summary_table$max_depth[1])
+autoGBM_BestParams['Random_learn_rate'] <- as.numeric(grid_sorted@summary_table$learn_rate[1])
+autoGBM_BestParams['Random_sample_rate'] <- as.numeric(grid_sorted@summary_table$sample_rate[1])
+autoGBM_BestParams['Random_col_sample_rate'] <- as.numeric(grid_sorted@summary_table$col_sample_rate[1])
+autoGBM_BestParams['Random_min_rows'] <- as.numeric(grid_sorted@summary_table$min_rows[1])
+
 cat(">> H2OGBM_Random done! \n")

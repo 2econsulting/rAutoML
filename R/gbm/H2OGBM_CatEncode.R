@@ -24,10 +24,16 @@ grid <- h2o.grid(
   score_each_iteration = TRUE,
   stopping_metric = "logloss",
   ntrees = 10000,
-  stopping_rounds = autoGBM_BestParams["stopping_round"][[1]]s,
-  stopping_tolerance = autoGBM_BestParams["stopping_tolerance"][[1]],
+  stopping_rounds = autoGBM_BestParams$stopping_rounds,
+  stopping_tolerance = autoGBM_BestParams$stopping_tolerance,
   hyper_params = hyper_params,
   search_criteria = list(strategy = "Cartesian")
 )
+
+grid_sorted <- h2o.getGrid(grid_id="H2OGBM_CatEncode", sort_by="logloss", decreasing=FALSE)
+autoGBM_Models["H2OGBM_CatEncode"] <- list(h2o.getModel(grid_sorted@model_ids[[1]]))
+h2o.auc(h2o.performance(autoGBM_Models["H2OGBM_CatEncode"][[1]], newdata = test_hex))
+saveRDS(autoGBM_Models['H2OGBM_CatEncode'], file.path(model_path, "H2OGBM_CatEncode.rda"))
+autoGBM_BestParams['TOP3_categorical_encoding'] <- list(grid_sorted@summary_table$categorical_encoding[1:3])
 
 cat(">> H2OGBM_CatEncode done! \n")

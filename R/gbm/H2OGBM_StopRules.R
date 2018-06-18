@@ -21,4 +21,11 @@ grid <- h2o.grid(
   search_criteria = list(strategy = "Cartesian")
 )
 
+grid_sorted <- h2o.getGrid(grid_id="H2OGBM_StopRules", sort_by="logloss", decreasing=FALSE)
+autoGBM_Models["H2OGBM_StopRules"] <- list(h2o.getModel(grid_sorted@model_ids[[1]]))
+h2o.auc(h2o.performance(autoGBM_Models["H2OGBM_StopRules"][[1]], newdata = test_hex))
+saveRDS(autoGBM_Models['H2OGBM_StopRules'], file.path(model_path, "H2OGBM_StopRules.rda"))
+autoGBM_BestParams['stopping_rounds'] <- as.numeric(grid_sorted@summary_table$stopping_rounds[1])
+autoGBM_BestParams['stopping_tolerance'] <- as.numeric(grid_sorted@summary_table$stopping_tolerance[1])
+
 cat(">> H2OGBM_StopRules done! \n")

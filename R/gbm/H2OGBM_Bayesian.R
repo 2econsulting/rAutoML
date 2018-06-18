@@ -69,4 +69,12 @@ H2OGBM_Bayesian <- h2o.gbm(
   col_sample_rate = as.numeric(bayesGridSearch$Best_Par["col_sample_rate"])
 )
 
+autoGBM_Models["H2OGBM_Bayesian"] <- list(h2o.getModel("H2OGBM_Bayesian"))
+h2o.auc(h2o.performance(autoGBM_Models["H2OGBM_Bayesian"][[1]], newdata = test_hex))
+saveRDS(autoGBM_Models['H2OGBM_Bayesian'], file.path(model_path, "H2OGBM_Bayesian.rda"))
+autoGBM_BestParams['Bayes_max_depth'] <- as.numeric(bayesGridSearch$Best_Par["max_depth"])
+autoGBM_BestParams['Bayes_min_rows'] <- as.numeric(bayesGridSearch$Best_Par["min_rows"])
+autoGBM_BestParams['Bayes_sample_rate'] <- as.numeric(bayesGridSearch$Best_Par["sample_rate"])
+autoGBM_BestParams['Bayes_col_sample_rate'] <- as.numeric(bayesGridSearch$Best_Par["col_sample_rate"])
+
 cat(">> H2OGBM_Bayesian done! \n")
