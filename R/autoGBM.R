@@ -18,11 +18,7 @@
 #' x <- setdiff(names(churn_hex),  c(y))
 #' autoGBM(x, y, train_hex, valid_hex, test_hex, model_path)
 #' @export
-autoGBM <- function(
-  x,  y, train_hex, valid_hex, test_hex, model_path="./"
-  max_runtime_secs = 60*60, max_models = 60,
-  init_points = 40, n_iter = 20
-  ){
+autoGBM <- function(x,y,train_hex,valid_hex,test_hex, model_path=".", max_runtime_secs=60*60,max_models=60,init_points=40,n_iter=20){
 
   path = 'R/gbm'
   autoGBM_Models <<- list()
