@@ -6,7 +6,7 @@
 #### install 
 ```r
 library(devtools)
-install_github("jacobgreen1984/rAutoML")
+install_github("2econsulting/rAutoML")
 library(rAutoML)
 ```
 
