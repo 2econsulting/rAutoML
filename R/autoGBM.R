@@ -27,11 +27,11 @@ autoGBM <- function(x,y,train_hex,valid_hex,test_hex, model_path=".", max_runtim
   source(file.path(path, "H2OGBM_StopRules.R"))
   source(file.path(path, "H2OGBM_CatEncode.R"))
   source(file.path(path, "H2OGBM_MaxDepth.R"))
-
-
+  max_runtime_secs <<- max_runtime_secs
+  max_models <<- max_models
   source(file.path(path, "H2OGBM_Random.R"))
-
-
+  init_points <<- init_points
+  n_iter <<- n_iter
   source(file.path(path, "H2OGBM_Bayesian.R"))
 
   # summmary ----
