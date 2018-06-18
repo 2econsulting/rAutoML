@@ -4,7 +4,9 @@
 \alias{autoGBM}
 \title{autoGBM}
 \usage{
-autoGBM(x, y, train_hex, valid_hex, test_hex, model_path = "./")
+autoGBM(x, y, train_hex, valid_hex, test_hex, model_path = ".",
+  max_runtime_secs = 60 * 60, max_models = 60, init_points = 40,
+  n_iter = 20)
 }
 \arguments{
 \item{x}{independent variables}
