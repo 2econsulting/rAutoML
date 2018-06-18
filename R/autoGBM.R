@@ -32,9 +32,9 @@
 #' @export
 autoGBM <- function(x, y, train_hex, valid_hex, test_hex, model_path="./"){
 
-  path = 'R/gbm'
-  autoGBM_Models <- list()
-  autoGBM_BestParams <- list()
+  path <<- 'R/gbm'
+  autoGBM_Models <<- list()
+  autoGBM_BestParams <<- list()
 
   # 0.1 make baseline default model
   source(file.path(path, "H2OGBM_Default.R"))
@@ -68,8 +68,8 @@ autoGBM <- function(x, y, train_hex, valid_hex, test_hex, model_path="./"){
   autoGBM_BestParams['TOP3_max_depth'] <- list(as.numeric(grid_sorted@summary_table$max_depth[1:3]))
 
   # 2.1 random grid search
-  max_runtime_secs = 60*60
-  max_models = 60
+  max_runtime_secs <<- 60*60
+  max_models <<- 60
   source(file.path(path, "H2OGBM_Random.R"))
   grid_sorted <- h2o.getGrid(grid_id="H2OGBM_Random", sort_by="logloss", decreasing=FALSE)
   autoGBM_Models["H2OGBM_Random"] <- list(h2o.getModel(grid_sorted@model_ids[[1]]))
@@ -83,8 +83,8 @@ autoGBM <- function(x, y, train_hex, valid_hex, test_hex, model_path="./"){
   autoGBM_BestParams['Random_min_rows'] <- as.numeric(grid_sorted@summary_table$min_rows[1])
 
   # 2.2 bayesian grid search
-  init_points = 40
-  n_iter = 20
+  init_points <<- 40
+  n_iter <<- 20
   source(file.path(path, "H2OGBM_Bayesian.R"))
   autoGBM_Models["H2OGBM_Bayesian"] <- list(h2o.getModel("H2OGBM_Bayesian"))
   h2o.auc(h2o.performance(autoGBM_Models["H2OGBM_Bayesian"][[1]], newdata = test_hex))
