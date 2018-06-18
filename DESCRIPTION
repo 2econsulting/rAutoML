@@ -3,8 +3,8 @@ Title: What the Package Does (one line, title case)
 Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
-Depends: h2o (>= 3.18.0.8)
-Imports: h2o
+Depends: h2o (>= 3.18.0.8), rBayesianOptimization, knitr
+Imports: h2o, rBayesianOptimization, knitr
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
