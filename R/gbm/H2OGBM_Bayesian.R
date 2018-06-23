@@ -33,8 +33,8 @@ min_rows <- autoGBM_BestParams$Random_min_rows
 bayesGridOptions <- list(
   max_depth = as.integer(c(max(2, max_depth-1), max_depth+1)),
   min_rows  = as.integer(c(max(1, min_rows-5), min_rows+5)),
-  sample_rate = c(sample_rate-0.1, sample_rate+0.1),
-  col_sample_rate = c(col_sample_rate-0.1, col_sample_rate+0.1)
+  sample_rate = c(sample_rate-0.1, min(sample_rate+0.1, 1)),
+  col_sample_rate = c(col_sample_rate-0.1, min(col_sample_rate+0.1, 1))
 )
 
 # bayesGridSearch
