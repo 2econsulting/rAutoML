@@ -198,6 +198,8 @@ autoGBM <- function(x, y, train_hex, valid_hex, test_hex, model_path="./output",
 
   # title : H2OGBM_Bayesian
   # author : jacob
+  tryCatch({
+
   h2o.rm("H2OGBM_Bayesian.R")
 
   init_points <<- init_points
@@ -278,6 +280,8 @@ autoGBM <- function(x, y, train_hex, valid_hex, test_hex, model_path="./output",
   autoGBM_BestParams['Bayes_col_sample_rate'] <- as.numeric(bayesGridSearch$Best_Par["col_sample_rate"])
 
   cat(">> H2OGBM_Bayesian done! \n")
+
+  }, error = function(e) print(">> error! skip this process! \n"))
 
   # summmary
   m = autoGBM_Models
